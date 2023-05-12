@@ -30,7 +30,7 @@ namespace WeedTunes.Controllers
         {
             try
             {
-                return ReturnResponse(await _recommendationService.Recommend(recommendationDto));
+                return ReturnResponse(await _recommendationService.GetRecommendations(recommendationDto));
             }
             catch (Exception ex)
             {
