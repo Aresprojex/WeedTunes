@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WeedTunes.Dto.RequestDto
+namespace WeedTunes.Dto
 {
     public class CreateStrianDto
     {
