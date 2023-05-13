@@ -8,6 +8,11 @@ using System.Collections.Generic;
 using WeedTunes.Services;
 using Microsoft.OpenApi.Models;
 using WeedTunes.Utilities;
+using Microsoft.EntityFrameworkCore;
+using WeedTunes.Entities;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
+using WeedTunes.Data;
 
 namespace WeedTunes
 {
@@ -24,8 +29,13 @@ namespace WeedTunes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            ConfigureDIService(services);
+            services.AddAutoMapper(typeof(Startup));
+            ConfigureEntityFrameworkDbContext(services);
             ConfigureSwagger(services);
+
+            AddIdentityProvider(services);
+
+            ConfigureDIService(services);
 
         }
 
@@ -51,10 +61,13 @@ namespace WeedTunes
 
         public void ConfigureDIService(IServiceCollection services)
         {
+            //services.AddDbContext<ApplicationDbContext>();
+            services.AddTransient<DbContext, ApplicationDbContext>();
             services.AddScoped<IRecommendationService, RecommendationService>();
+            services.AddScoped<IStrainService, StrainService>();
         }
 
-        public void ConfigureSwagger(IServiceCollection services)
+        private void ConfigureSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
@@ -105,6 +118,38 @@ namespace WeedTunes
                 });
 
                 c.DescribeAllParametersInCamelCase();
+            });
+        }
+
+        private void ConfigureEntityFrameworkDbContext(IServiceCollection services)
+        {
+            string dbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    dbConnectionString,
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+        }
+
+        private void AddIdentityProvider(IServiceCollection services)
+        {
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = true;
+                options.SignIn.RequireConfirmedEmail = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Password.RequiredUniqueChars = 1;
+
+            }).AddEntityFrameworkStores<DbContext>()
+            .AddDefaultTokenProviders();
+
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromHours(24);
             });
         }
     }

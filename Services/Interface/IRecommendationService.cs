@@ -9,6 +9,7 @@ namespace WeedTunes.Services
 {
     public interface IRecommendationService
     {
-        Task<BaseResponse<IEnumerable<RecommendationDto>>> Recommend(GetRecommendationDto getRecommendation);
+        Task<BaseResponse<SpotifyAuthResponseDto>> GetToken();
+        Task<BaseResponse<IEnumerable<RecommendationDto>>> GetRecommendations(GetRecommendationDto getRecommendation);
     }
 }
