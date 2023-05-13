@@ -61,7 +61,8 @@ namespace WeedTunes
 
         public void ConfigureDIService(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>();
+            //services.AddDbContext<ApplicationDbContext>();
+            services.AddTransient<DbContext, ApplicationDbContext>();
             services.AddScoped<IRecommendationService, RecommendationService>();
             services.AddScoped<IStrainService, StrainService>();
         }
@@ -124,10 +125,10 @@ namespace WeedTunes
         {
             string dbConnectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<DbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     dbConnectionString,
-                    b => b.MigrationsAssembly(typeof(DbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
 
         private void AddIdentityProvider(IServiceCollection services)
