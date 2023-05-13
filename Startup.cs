@@ -11,6 +11,7 @@ using WeedTunes.Utilities;
 using Microsoft.EntityFrameworkCore;
 using WeedTunes.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.Reflection;
 
 namespace WeedTunes
 {
@@ -27,6 +28,8 @@ namespace WeedTunes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             ConfigureEntityFrameworkDbContext(services);
             ConfigureDIService(services);
             ConfigureSwagger(services);
