@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WeedTunes.Dto;
 using WeedTunes.Services;
+using WeedTunes.Utilities.Helpers;
 
 namespace WeedTunes.Controllers
 {
@@ -20,9 +21,11 @@ namespace WeedTunes.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(BaseResponse<StrainDto>), 200)]
+        [ProducesResponseType(typeof(BaseResponse<StrainDto>), 500)]
         public async Task<IActionResult> CreateStrain([FromBody]CreateStrianDto strianDto)
         {
-            return ReturnResponse(_strainService.CreateStrain(strianDto));
+            return ReturnResponse(await _strainService.CreateStrain(strianDto));
         }
 
     }
