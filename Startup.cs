@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using WeedTunes.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
+using WeedTunes.Data;
 
 namespace WeedTunes
 {
@@ -28,12 +29,13 @@ namespace WeedTunes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+            services.AddAutoMapper(typeof(Startup));
             ConfigureEntityFrameworkDbContext(services);
-            ConfigureDIService(services);
             ConfigureSwagger(services);
+
             AddIdentityProvider(services);
+
+            ConfigureDIService(services);
 
         }
 
@@ -59,6 +61,7 @@ namespace WeedTunes
 
         public void ConfigureDIService(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>();
             services.AddScoped<IRecommendationService, RecommendationService>();
             services.AddScoped<IStrainService, StrainService>();
         }
