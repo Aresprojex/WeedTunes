@@ -13,6 +13,8 @@ using WeedTunes.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using WeedTunes.Data;
+using WeedTunes.Services.Interface;
+using WeedTunes.Services.Implementation;
 
 namespace WeedTunes
 {
@@ -65,6 +67,10 @@ namespace WeedTunes
             services.AddTransient<DbContext, ApplicationDbContext>();
             services.AddScoped<IRecommendationService, RecommendationService>();
             services.AddScoped<IStrainService, StrainService>();
+            services.AddScoped<ISongService, SongService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IUserPlayListService, UserPlayListService>();
+            services.AddScoped<IPlayListService, PlayListService>();
         }
 
         private void ConfigureSwagger(IServiceCollection services)

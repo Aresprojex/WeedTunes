@@ -15,6 +15,16 @@ namespace WeedTunes.Data
         }
 
         public DbSet<Strain> Strains { get; set; }
+        public DbSet<StrainFeeling> StrainFeelings { get; set; }
+        public DbSet<StrainFlavour> StrainFlavours { get; set; }
+        public DbSet<StrainHelpsWith> StrainHelpsWith { get; set; }
+        public DbSet<StrainNegativeAspect> StrainNegativeAspects { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Song> Songs { get; set; }
+        public DbSet<PlayList> PlayLists { get; set; }
+        public DbSet<UserPlayList> UserPlayLists { get; set; } 
+        public DbSet<UserPlayListSong> UserPlayListSongs { get; set; }
+        public DbSet<UserFavouriteSong> UserFavouriteSongs { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
