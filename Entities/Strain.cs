@@ -16,5 +16,6 @@ namespace WeedTunes.Entities
         public IEnumerable<StrainHelpsWith> HelpsWith { get; set; }
 
         public IEnumerable<StrainFlavour> Flavours { get; set; }
+        public List<Song> Songs { get; set; } = new List<Song>();
     }
 }

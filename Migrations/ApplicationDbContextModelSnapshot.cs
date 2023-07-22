@@ -168,6 +168,12 @@ namespace WeedTunes.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -212,6 +218,214 @@ namespace WeedTunes.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e7d58c75-18bc-4868-b54d-0a1fdf8fe94d"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7351262a-81fc-49f4-8467-c04e9c989c9e",
+                            Email = "systemuser@weedtunes.com",
+                            EmailConfirmed = true,
+                            FirstName = "WeedTunes User",
+                            LastName = "User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SYSTEMUSER@WEEDTUNES.COM",
+                            NormalizedUserName = "SYSTEMUSER@WEEDTUNES.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEwbFhYsM+W2yTa/S0J5+BXbQf1va/vjAc7SumphKXhhQCSU4NDmgtoaOHQnDKeSNA==",
+                            PhoneNumber = "07060882817",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "99ae0c45-d682-4542-9ba7-1281e471916b",
+                            TwoFactorEnabled = false,
+                            UserName = "systemuser@weedtunes.com"
+                        });
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.Genre", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.PlayList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlayLists");
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.Song", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Artist")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("GenreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PlayListId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ReleasedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("StrainId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("PlayListId");
+
+                    b.HasIndex("StrainId");
+
+                    b.ToTable("Songs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("edb4a662-b4af-4001-82a4-0405c44f8d98"),
+                            Artist = "Howlin Wolf",
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 288, DateTimeKind.Utc).AddTicks(6357),
+                            IsActive = false,
+                            IsDeleted = false,
+                            Name = "Smokestack Lightnin",
+                            ReleasedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("64a18e8b-ec2b-4631-8f21-49a0dbd1451f"),
+                            Artist = "Eagles",
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 288, DateTimeKind.Utc).AddTicks(7753),
+                            IsActive = false,
+                            IsDeleted = false,
+                            Name = "Hotel California",
+                            ReleasedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("973af7a9-7f18-4e8b-acd3-bc906580561a"),
+                            Artist = "Whitney Houston",
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 288, DateTimeKind.Utc).AddTicks(7789),
+                            IsActive = false,
+                            IsDeleted = false,
+                            Name = "I Will Always Love You",
+                            ReleasedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("2808568f-f79f-4b6e-8a75-7ee2f0700636"),
+                            Artist = "Howlin Wolf",
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 288, DateTimeKind.Utc).AddTicks(7792),
+                            IsActive = false,
+                            IsDeleted = false,
+                            Name = "Spoonful",
+                            ReleasedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("0104cf12-fff0-472f-930f-ee6fe2f1dc8f"),
+                            Artist = "Howlin Wolf",
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 288, DateTimeKind.Utc).AddTicks(7794),
+                            IsActive = false,
+                            IsDeleted = false,
+                            Name = "Killing Floor",
+                            ReleasedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("WeedTunes.Entities.Strain", b =>
@@ -292,7 +506,7 @@ namespace WeedTunes.Migrations
 
                     b.HasIndex("StrainId");
 
-                    b.ToTable("StrainFeeling");
+                    b.ToTable("StrainFeelings");
                 });
 
             modelBuilder.Entity("WeedTunes.Entities.StrainFlavour", b =>
@@ -335,7 +549,7 @@ namespace WeedTunes.Migrations
 
                     b.HasIndex("StrainId");
 
-                    b.ToTable("StrainFlavour");
+                    b.ToTable("StrainFlavours");
                 });
 
             modelBuilder.Entity("WeedTunes.Entities.StrainHelpsWith", b =>
@@ -421,7 +635,173 @@ namespace WeedTunes.Migrations
 
                     b.HasIndex("StrainId");
 
-                    b.ToTable("StrainNegativeAspect");
+                    b.ToTable("StrainNegativeAspects");
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.UserFavouriteSong", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SongId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("SongId");
+
+                    b.ToTable("UserFavouriteSongs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fba22b76-77be-4af0-ae54-2db7785d40ec"),
+                            ApplicationUserId = new Guid("e7d58c75-18bc-4868-b54d-0a1fdf8fe94d"),
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 289, DateTimeKind.Utc).AddTicks(8456),
+                            IsActive = false,
+                            IsDeleted = false,
+                            SongId = new Guid("edb4a662-b4af-4001-82a4-0405c44f8d98")
+                        });
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.UserPlayList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("UserPlayLists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("12599d1b-8d12-49a6-a3ab-beeeaabb6661"),
+                            ApplicationUserId = new Guid("e7d58c75-18bc-4868-b54d-0a1fdf8fe94d"),
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 299, DateTimeKind.Utc).AddTicks(9964),
+                            IsActive = false,
+                            IsDeleted = false,
+                            Name = "First Play List"
+                        });
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.UserPlayListSong", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("SongId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserPlayListId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SongId");
+
+                    b.HasIndex("UserPlayListId");
+
+                    b.ToTable("UserPlayListSongs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5511aed4-bb5c-4643-880c-393ddd07a907"),
+                            CreatedOn = new DateTime(2023, 7, 22, 13, 15, 54, 300, DateTimeKind.Utc).AddTicks(3462),
+                            IsActive = false,
+                            IsDeleted = false,
+                            SongId = new Guid("edb4a662-b4af-4001-82a4-0405c44f8d98"),
+                            UserPlayListId = new Guid("12599d1b-8d12-49a6-a3ab-beeeaabb6661")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -475,6 +855,21 @@ namespace WeedTunes.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WeedTunes.Entities.Song", b =>
+                {
+                    b.HasOne("WeedTunes.Entities.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId");
+
+                    b.HasOne("WeedTunes.Entities.PlayList", "PlayList")
+                        .WithMany("Songs")
+                        .HasForeignKey("PlayListId");
+
+                    b.HasOne("WeedTunes.Entities.Strain", "Strain")
+                        .WithMany("Songs")
+                        .HasForeignKey("StrainId");
+                });
+
             modelBuilder.Entity("WeedTunes.Entities.StrainFeeling", b =>
                 {
                     b.HasOne("WeedTunes.Entities.Strain", "Strain")
@@ -507,6 +902,43 @@ namespace WeedTunes.Migrations
                     b.HasOne("WeedTunes.Entities.Strain", "Strain")
                         .WithMany("NegativeAspects")
                         .HasForeignKey("StrainId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.UserFavouriteSong", b =>
+                {
+                    b.HasOne("WeedTunes.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WeedTunes.Entities.Song", "Song")
+                        .WithMany()
+                        .HasForeignKey("SongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.UserPlayList", b =>
+                {
+                    b.HasOne("WeedTunes.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WeedTunes.Entities.UserPlayListSong", b =>
+                {
+                    b.HasOne("WeedTunes.Entities.Song", "Song")
+                        .WithMany()
+                        .HasForeignKey("SongId");
+
+                    b.HasOne("WeedTunes.Entities.UserPlayList", "UserPlayList")
+                        .WithMany("UserPlayListSongs")
+                        .HasForeignKey("UserPlayListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

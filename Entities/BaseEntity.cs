@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WeedTunes.Entities
 {
@@ -9,7 +10,7 @@ namespace WeedTunes.Entities
             CreatedOn = DateTime.UtcNow;
         }
 
-        //[Key]
+        [Key]
         public Guid Id { get; set; }
         public Guid? DeletedBy { get; set; }
         public bool IsDeleted { get; set; }
